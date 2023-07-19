@@ -24,6 +24,37 @@ class UserFactory extends Factory
         return [
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
+            'password' => $this->faker->password
         ];
+    }
+
+    /**
+     * Create natural person user type.
+     *
+     * @return array
+     */
+    public function createNaturalPerson()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'document' => $this->faker->numerify('###########'),
+                'type' => 1,
+            ];
+        });
+    }
+
+    /**
+     * Create legal entity user type.
+     *
+     * @return array
+     */
+    public function createLegalEntity()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'document' => $this->faker->numerify('##############'),
+                'type' => 2,
+            ];
+        });
     }
 }

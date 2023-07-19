@@ -24,8 +24,19 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'password',
     ];
 
+    // Tipo de usuário Pessoa física ou jurídica
+    const typesByID = [
+        1 => "natural person",
+        2 => "legal entity",
+    ];
+
     public function wallet()
     {
         return $this->hasOne(Wallet::class);
+    }
+
+    public function isNaturalPerson()
+    {
+        return $this->type === 1;
     }
 }
