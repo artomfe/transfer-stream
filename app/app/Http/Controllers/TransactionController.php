@@ -29,9 +29,7 @@ class TransactionController extends BaseController
         $payeeId = $request->input('payee_id');
 
         try {
-            $this->transactionService->makeTransaction($payerId, $amount, $payeeId);
-            return response()->json(['message' => 'Transação realizada com sucesso!']);
-
+            return $this->transactionService->makeTransaction($payerId, $amount, $payeeId);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
         }
