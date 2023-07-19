@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreign('payer_id')->references('id')->on('wallets');
             $table->unsignedBigInteger('payee_id');
             $table->foreign('payee_id')->references('id')->on('wallets');
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->default(1);
             $table->timestamp('processed_at')->nullable();
             $table->timestamps();
         });
