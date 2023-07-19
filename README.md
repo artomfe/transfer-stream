@@ -18,7 +18,7 @@ Sistema para simular um fluxo de transações entre usuários.
 
 4. rodar o comando "php artisan migrate" para criar as tabelas do projeto
 
-5. Rodar o comando "php artisa db:seed" para popular as tabelas
+5. Rodar o comando "php artisan db:seed" para popular as tabelas
 
 # Urls
 
