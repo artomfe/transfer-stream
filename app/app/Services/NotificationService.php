@@ -10,12 +10,12 @@ class NotificationService
     public function sendNotification($user, $amount, $transaction)
     {
         Log::debug("Iniciando o serviço de notificação: \n user_id: $user->id \n transaction_id: $transaction");
-        
+
         $notificationServiceUrl = 'http://o4d9z.mocklab.io/notify';
         $client = new Client();
     
         // Make external service request
-        $response = $client->post($notificationServiceUrl, [
+        $response = $client->get($notificationServiceUrl, [
             'form_params' => [
                 'user_id' => $user->id,
                 'message' => 'Você recebeu um pagamento de R$ ' . $amount,

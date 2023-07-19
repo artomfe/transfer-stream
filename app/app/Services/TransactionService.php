@@ -14,11 +14,17 @@ class TransactionService
 {
     private $userRepository;
     private $transactionRepository;
+    private $notificationService;
 
-    public function __construct(UserRepository $userRepository, TransactionRepository $transactionRepository)
+    public function __construct(
+        UserRepository $userRepository, 
+        TransactionRepository $transactionRepository,
+        NotificationService $notificationService
+    )
     {
         $this->userRepository = $userRepository;
         $this->transactionRepository = $transactionRepository;
+        $this->notificationService = $notificationService;
     }
 
     public function makeTransaction(int $payerId, float $amount, int $payeeId) : JsonResponse
@@ -32,6 +38,8 @@ class TransactionService
 
         try {
             $transactionToReturn = $this->processTransaction($payer, $payee, $amount, $transaction);
+
+            $this->notificationService->sendNotification($payee, $amount, $transaction->id);
 
             return response()->json(['message' => 'Transação realizada com sucesso!', 'data' => $transactionToReturn]);
         } catch (\Exception $e) {

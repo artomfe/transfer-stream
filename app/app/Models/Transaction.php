@@ -14,6 +14,13 @@ class Transaction extends Model
         'processed_at',
     ];
 
+    // Transaction status
+    const statusByID = [
+        1 => "on going",
+        2 => "successful",
+        3 => "refused",
+    ];
+
     public function payer()
     {
         return $this->belongsTo(Wallet::class, 'payer_id');
