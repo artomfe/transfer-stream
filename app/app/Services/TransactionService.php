@@ -5,10 +5,11 @@ namespace App\Services;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
-use App\Repository\UserRepository;
-use App\Repository\TransactionRepository;
+use App\Repositories\UserRepository;
+use App\Repositories\TransactionRepository;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 
 class TransactionService
 {
@@ -44,6 +45,8 @@ class TransactionService
             return response()->json(['message' => 'Transação realizada com sucesso!', 'data' => $transactionToReturn]);
         } catch (\Exception $e) {
             $this->handleTransactionError($transaction);
+
+            Log::error("Falha ao processar transação: \n" . $e);
 
             throw new HttpException(400, 'Ocorreu um erro ao processar sua transação.');
         }
